@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Odelya Matatov | Software Developer</title>
+<meta name="description" content="Odelya Matatov, Computer Science graduate and software developer. Projects in C++, Python, computer vision and full stack web.">
+<meta property="og:title" content="Odelya Matatov | Software Developer">
+<meta property="og:description" content="Computer Science graduate and software developer. Projects in C++, Python, computer vision and full stack web.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://odelyamat.github.io/">
+<meta property="og:image" content="https://odelyamat.github.io/bg.jpg">
+<meta name="theme-color" content="#07081A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2307081A'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial Black,Arial' font-weight='900' font-size='28' fill='%23A98BFF'%3EOM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one night-sky column over a dimmed fixed Aquarius background; numbered chapters, mono labels, wide display name. Single dark theme by choice. */
+:root {
+  --ink: #07081A;
+  --panel: rgba(14, 14, 38, 0.62);
+  --line: rgba(160, 150, 255, 0.16);
+  --line-strong: rgba(160, 150, 255, 0.32);
+  --text: #ECEAFB;
+  --text-dim: #B9B6D8;
+  --text-muted: #8E8AB4;
+  --violet: #A98BFF;
+  --violet-soft: rgba(169, 139, 255, 0.14);
+  --star: #F4C982;
+  --f-display: "Unbounded", "Arial Black", system-ui, sans-serif;
+  --f-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+img { max-width: 100%; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+::selection { background: var(--violet); color: var(--ink); }
+
+/* Background */
+.sky {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: url("bg.jpg") center 30% / cover no-repeat;
+  filter: brightness(0.38) saturate(1.05);
+  transform: scale(1.12);
+}
+.sky-veil {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 70% 20%, transparent 0%, rgba(7,8,26,0.35) 60%),
+    linear-gradient(180deg, rgba(7,8,26,0.25) 0%, rgba(7,8,26,0.55) 55%, rgba(7,8,26,0.85) 100%);
+}
+
+/* Nav */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  background: rgba(7, 8, 26, 0.55);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  max-width: 1120px; margin: 0 auto; padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.logo { font-family: var(--f-display); font-weight: 800; font-size: 18px; color: var(--violet); text-decoration: none; letter-spacing: 0.02em; }
+.logo span { color: var(--star); }
+.nav-links { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
+.nav-links a {
+  font-family: var(--f-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--text-muted); text-decoration: none; transition: color .2s;
+}
+.nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
+
+.menu-btn { display: none; width: 40px; height: 40px; border: 1px solid var(--line-strong); border-radius: 4px; background: transparent; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 5px; padding: 0; }
+.menu-btn span { display: block; width: 18px; height: 2px; background: var(--text); transition: transform .25s, opacity .25s; }
+.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Scroll reveal (only applied by JS to sections below the fold) */
+.wrap .pre { opacity: 0; transform: translateY(28px); }
+.wrap .shown { opacity: 1; transform: none; transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+
+/* Wrapper */
+.wrap { position: relative; z-index: 1; }
+main { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+
+/* Hero */
+.hero { padding-block: clamp(72px, 14vh, 150px) 72px; }
+.eyebrow {
+  font-family: var(--f-mono); font-size: 13px; color: var(--violet);
+  letter-spacing: 0.04em; margin: 0 0 22px;
+}
+.eyebrow .sep { color: var(--text-muted); padding-inline: 8px; }
+.name {
+  font-family: var(--f-display); font-weight: 800; text-transform: uppercase;
+  font-size: clamp(38px, 8vw, 100px); line-height: 0.95; letter-spacing: -0.01em;
+  margin: 0; text-wrap: balance;
+}
+.name .l1 { display: block; color: var(--text); }
+.name .l2 { display: block; color: var(--violet); text-shadow: 0 0 40px rgba(169,139,255,0.35); }
+.typer {
+  font-family: var(--f-mono); font-size: clamp(15px, 2vw, 19px); color: var(--text-dim);
+  margin: 30px 0 34px; min-height: 1.6em;
+}
+.typer .prompt { color: var(--star); margin-right: 10px; }
+.cursor {
+  display: inline-block; width: 0.6ch; height: 1.15em; margin-left: 2px;
+  background: var(--violet); vertical-align: text-bottom;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--f-mono); font-size: 13px; letter-spacing: 0.03em;
+  padding: 11px 18px; border: 1px solid var(--line-strong); border-radius: 4px;
+  background: rgba(7,8,26,0.45); color: var(--text); text-decoration: none;
+  transition: border-color .2s, background .2s, transform .2s;
+}
+.btn:hover, .btn:focus-visible { border-color: var(--violet); background: var(--violet-soft); transform: translateY(-1px); }
+.btn.primary { background: var(--violet); border-color: var(--violet); color: var(--ink); font-weight: 500; }
+.btn.primary:hover { background: #BBA3FF; }
+.btn svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
+.scroll-hint {
+  margin-top: 64px; display: flex; align-items: center; gap: 14px;
+  font-family: var(--f-mono); font-size: 12px; color: var(--text-muted); letter-spacing: 0.1em;
+}
+.scroll-hint::before { content: ""; width: 44px; height: 1px; background: var(--violet); }
+
+/* Sections */
+section.block { padding-block: 72px; border-top: 1px solid var(--line); scroll-margin-top: 70px; }
+.sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+.sec-num { font-family: var(--f-mono); font-size: 13px; color: var(--violet); }
+.sec-title { font-family: var(--f-display); font-weight: 700; font-size: clamp(24px, 3.4vw, 34px); margin: 0; letter-spacing: -0.01em; }
+
+/* About */
+.about { display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; align-items: start; }
+.about p { margin: 0 0 16px; color: var(--text-dim); max-width: 62ch; font-size: 17px; }
+.about p strong { color: var(--text); font-weight: 600; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 20px; backdrop-filter: blur(6px); }
+.stat b { display: block; font-family: var(--f-display); font-weight: 700; font-size: 32px; color: var(--star); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stat span { display: block; margin-top: 6px; font-size: 13px; line-height: 1.4; color: var(--text-muted); }
+
+/* Projects */
+.projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.proj {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 26px;
+  display: flex; flex-direction: column; gap: 14px; backdrop-filter: blur(6px);
+  transition: border-color .25s, transform .25s;
+}
+.proj:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+.proj-top { display: flex; justify-content: space-between; gap: 12px; font-family: var(--f-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-muted); }
+.proj-top .cat { color: var(--violet); }
+.proj h3 { font-family: var(--f-display); font-weight: 500; font-size: 19px; line-height: 1.3; margin: 0; text-wrap: balance; }
+.proj p { margin: 0; color: var(--text-dim); font-size: 15px; }
+.proj ul { margin: 0; padding-left: 18px; color: var(--text-dim); font-size: 14.5px; }
+.proj li { margin-bottom: 4px; }
+.proj li::marker { color: var(--violet); }
+.metric { font-family: var(--f-mono); font-size: 13px; color: var(--star); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 6px; }
+.tag { font-family: var(--f-mono); font-size: 11.5px; padding: 4px 9px; border-radius: 3px; background: var(--violet-soft); color: #CDBEFF; }
+
+.gh-link { font-family: var(--f-mono); font-size: 14px; color: var(--violet); text-decoration: none; align-self: flex-start; transition: color .2s; }
+.gh-link:hover { color: var(--star); }
+.gh-link:hover, .gh-link:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Timeline (education + service) */
+.timeline { position: relative; display: grid; gap: 44px; padding-left: 64px; }
+.timeline::before { content: ""; position: absolute; left: 10px; top: 0; bottom: 0; width: 1px; background: var(--line-strong); }
+.entry { position: relative; }
+.entry::before {
+  content: ""; position: absolute; left: -64px; top: 4px; width: 13px; height: 13px; border-radius: 50%;
+  border: 3px solid var(--violet); background: var(--ink); box-shadow: 0 0 12px rgba(169,139,255,0.45);
+}
+.when { font-family: var(--f-mono); font-size: 14px; color: var(--violet); letter-spacing: 0.08em; margin-bottom: 10px; font-variant-numeric: tabular-nums; }
+.entry h3 { font-family: var(--f-display); font-weight: 700; font-size: clamp(20px, 2.4vw, 26px); margin: 0 0 10px; line-height: 1.25; }
+.entry .where { font-family: var(--f-mono); color: var(--text-dim); font-size: 15px; margin-bottom: 16px; }
+.entry p { margin: 0; color: var(--text-dim); font-size: 16px; }
+.entry ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.entry li { position: relative; padding-left: 24px; color: var(--text-dim); font-size: 16.5px; }
+.entry li::before { content: "›"; position: absolute; left: 4px; top: -1px; color: var(--violet); font-family: var(--f-mono); }
+.badge { display: inline-block; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--star); border: 1px solid rgba(244,201,130,0.4); border-radius: 3px; padding: 2px 8px; margin-left: 10px; vertical-align: middle; font-weight: 400; }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px 24px; }
+.skill-group { min-width: 0; }
+.skill-group h3 { font-family: var(--f-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--violet); margin: 0 0 16px; padding-bottom: 16px; border-bottom: 1px solid var(--line); font-weight: 500; }
+.skill-group ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.skill-group li {
+  display: flex; align-items: center; gap: 14px; padding: 13px 18px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 5px;
+  font-size: 16px; color: var(--text); backdrop-filter: blur(6px);
+  transition: border-color .2s, background .2s;
+}
+.skill-group li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--violet); opacity: .7; flex: none; }
+.skill-group li:hover { border-color: var(--violet); background: rgba(40, 26, 80, 0.7); }
+.skill-group li small { color: var(--text-muted); font-size: 13px; margin-left: auto; }
+
+/* Contact */
+.contact { text-align: left; }
+.contact h2 { font-family: var(--f-display); font-weight: 800; font-size: clamp(30px, 6vw, 64px); line-height: 1.05; margin: 0 0 18px; text-wrap: balance; }
+.contact h2 span { color: var(--violet); }
+.contact p { color: var(--text-dim); max-width: 56ch; margin: 0 0 30px; font-size: 17px; }
+.mail-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 18px; }
+.mail { font-family: var(--f-mono); font-size: clamp(15px, 2.4vw, 20px); color: var(--star); user-select: all; word-break: break-all; }
+.copy-btn { cursor: pointer; font: inherit; }
+
+footer { position: relative; z-index: 1; border-top: 1px solid var(--line); }
+.foot { max-width: 1120px; margin: 0 auto; padding: 26px 20px; align-items: center; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-family: var(--f-mono); font-size: 12px; color: var(--text-muted); }
+.foot a { color: var(--text-muted); text-decoration: none; margin-left: 18px; }
+.foot a:hover { color: var(--text); }
+
+a:focus-visible, button:focus-visible { outline: 2px solid var(--star); outline-offset: 3px; }
+
+/* Load-in */
+.rise { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+.d1 { animation-delay: .05s } .d2 { animation-delay: .18s } .d3 { animation-delay: .32s } .d4 { animation-delay: .46s }
+@keyframes rise { from { transform: translateY(18px); opacity: .001; } to { transform: none; opacity: 1; } }
+
+@media (max-width: 900px) {
+  .about { grid-template-columns: 1fr; }
+  .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .menu-btn { display: flex; }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; padding: 8px 20px 16px; background: var(--ink); box-shadow: 0 20px 40px rgba(0,0,0,0.5); border-bottom: 1px solid var(--line); }
+  .nav-links.open { display: flex; }
+  .nav-links a { display: block; padding: 12px 0; font-size: 13px; }
+  .nav-inner { position: relative; }
+}
+@media (max-width: 640px) {
+  .projects { grid-template-columns: 1fr; }
+  .timeline { padding-left: 40px; }
+  .entry::before { left: -40px; }
+  .skills { grid-template-columns: 1fr; }
+  .hero { padding-block: 56px 48px; }
+  .foot a { margin-left: 0; margin-right: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rise, .cursor { animation: none; }
+  .wrap .pre { opacity: 1; transform: none; }
+  .proj, .btn, .skill-group li { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"></div>
+<div class="sky-veil" aria-hidden="true"></div>
+
+<div class="wrap">
+  <nav class="nav" aria-label="Main">
+    <div class="nav-inner">
+      <a class="logo" href="#top">OM<span>.</span></a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#service">Service</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <p class="eyebrow rise d1">B.Sc. Computer Science graduate<span class="sep">·</span>The Academic College of Tel Aviv-Yaffo</p>
+      <h1 class="name rise d2"><span class="l1">Odelya</span><span class="l2">Matatov</span></h1>
+      <p class="typer rise d3" aria-label="Software Developer, Backend Developer, Full Stack Developer, AI and Computer Vision Developer, C and C++ Engineer"><span class="prompt">&gt;</span><span id="typed" aria-hidden="true">Software Developer.</span><span class="cursor" aria-hidden="true"></span></p>
+      <div class="cta rise d4">
+        <a class="btn primary" href="https://github.com/OdelyaMat" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+        <a class="btn" href="https://www.linkedin.com/in/odelya-matatov-13193b259/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 1.15C0 .52.52 0 1.17 0h13.66C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.17 1.15H1.17C.52 16 0 15.48 0 14.85V1.15zM4.94 13.4V6.17h-2.4v7.23h2.4zM3.74 5.18c.84 0 1.36-.56 1.36-1.25-.02-.71-.52-1.25-1.34-1.25-.82 0-1.36.54-1.36 1.25 0 .7.52 1.25 1.33 1.25h.01zm4.91 8.22V9.36c0-.22.02-.43.08-.58.17-.43.57-.88 1.23-.88.87 0 1.22.66 1.22 1.64v3.86h2.4V9.25c0-2.22-1.18-3.25-2.77-3.25-1.28 0-1.86.7-2.17 1.2v.03h-.02l.02-.03V6.17h-2.4c.03.68 0 7.23 0 7.23h2.4z"/></svg>
+          LinkedIn
+        </a>
+        <a class="btn" href="#contact">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 4a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2V4zm2-1a1 1 0 00-1 1v.22l7 4.2 7-4.2V4a1 1 0 00-1-1H2zm13 2.38l-6.74 4.05a.5.5 0 01-.52 0L1 5.38V12a1 1 0 001 1h12a1 1 0 001-1V5.38z"/></svg>
+          Get in touch
+        </a>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">scroll</div>
+    </header>
+
+    <section class="block" id="about">
+      <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">About</h2></div>
+      <div class="about">
+        <div>
+          <p>I'm a <strong>Computer Science graduate of The Academic College of Tel Aviv-Yaffo</strong> with a strong foundation in C and C++ and hands-on experience building object-oriented software end to end.</p>
+          <p>I'm comfortable moving between low-level system logic and applied projects that combine computer vision with real-time decision making, like a traffic light system that reads live camera footage and adapts its timing.</p>
+          <p>I'm looking for my first role as a <strong>backend or full stack developer</strong>, with growing experience in Python and experience with C# and .NET.</p>
+          <p>I also completed <strong>The Complete Full-Stack Web Development Bootcamp</strong>, covering HTML, CSS, JavaScript, React, Node.js, Express, PostgreSQL and MongoDB. It gave me a foundation across the whole stack, from the database to the UI.</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>4</b><span>Projects built end to end</span></div>
+          <div class="stat"><b>25+</b><span>Technologies &amp; tools in my stack</span></div>
+          <div class="stat"><b>2</b><span>AI &amp; computer vision projects</span></div>
+          <div class="stat"><b>3</b><span>Languages: Hebrew, English, Spanish</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="projects">
+      <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Projects</h2></div>
+      <div class="projects">
+        <article class="proj">
+          <div class="proj-top"><span class="cat">Computer Vision · Python</span></div>
+          <h3>Smart Traffic Light System</h3>
+          <p>Real-time traffic analysis for a four-way intersection that adjusts light timing to live traffic load.</p>
+          <ul>
+            <li>Vehicle detection with YOLOv8 and RT-DETR on OpenCV video</li>
+            <li>Compared control algorithms, including an adaptive timer and round robin scheduling</li>
+          </ul>
+          <div class="tags"><span class="tag">Python</span><span class="tag">YOLOv8</span><span class="tag">RT-DETR</span><span class="tag">OpenCV</span></div>
+          <a class="gh-link" href="https://github.com/OdelyaMat/Traffic-Light-Controller" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <div class="proj-top"><span class="cat">AI · Web App</span></div>
+          <h3>AiTest: Hebrew &amp; Arabic Speaking Practice</h3>
+          <p>An AI-powered bilingual speaking practice platform, built by a two-person team.</p>
+          <ul>
+            <li>Proposed the concept and product direction; helped choose the stack and architecture</li>
+            <li>Co-designed the MongoDB data model for user interactions and practice history</li>
+            <li>Tested practice, authentication and admin flows before submission</li>
+          </ul>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">MongoDB</span><span class="tag">OpenAI API</span></div>
+          <a class="gh-link" href="https://github.com/OdelyaMat/AiTest" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <div class="proj-top"><span class="cat">Hardware · Real-time</span></div>
+          <h3>Hebrew Word Game with RFID Cards</h3>
+          <p>A two-player, real-time Hebrew vocabulary game played by scanning physical cards.</p>
+          <ul>
+            <li>Node.js server broadcasts the current word, turn and scores the instant a card is scanned</li>
+            <li>Wrote the Arduino sketch and an admin interface for registering cards to words</li>
+          </ul>
+          <div class="tags"><span class="tag">Arduino</span><span class="tag">RFID</span><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">WebSocket</span></div>
+          <a class="gh-link" href="https://github.com/OdelyaMat/Hebrew-Word-Game" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="proj">
+          <div class="proj-top"><span class="cat">Game Dev · C++ / OOP</span></div>
+          <h3>Donkey Kong Console Game</h3>
+          <p>A console arcade game written in pure C++, with no game engine. Built around inheritance hierarchies, polymorphism and a modular class structure.</p>
+          <ul>
+            <li>Game logic, player movement, collision detection and scoring</li>
+            <li>Modular architecture designed for scalability and maintainability</li>
+          </ul>
+          <div class="tags"><span class="tag">C++</span><span class="tag">OOP</span><span class="tag">Inheritance</span><span class="tag">Polymorphism</span><span class="tag">Console</span></div>
+          <a class="gh-link" href="https://github.com/OdelyaMat/Donkey-Kong" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="block" id="skills">
+      <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Skills</h2></div>
+      <div class="skills">
+        <div class="skill-group"><h3>Languages</h3><ul><li>Python</li><li>C / C++</li><li>C# · .NET</li><li>JavaScript (ES6+)</li><li>SQL</li></ul></div>
+        <div class="skill-group"><h3>Frontend</h3><ul><li>HTML</li><li>CSS</li><li>React</li><li>Streamlit</li></ul></div>
+        <div class="skill-group"><h3>Backend &amp; Data</h3><ul><li>Node.js · Express.js</li><li>REST APIs</li><li>Authentication</li><li>WebSocket</li><li>MongoDB</li><li>PostgreSQL</li></ul></div>
+        <div class="skill-group"><h3>AI &amp; LLMs</h3><ul><li>Google Gemini</li><li>GPT-4o</li><li>Prompt Engineering</li><li>OpenAI API</li></ul></div>
+        <div class="skill-group"><h3>AI Tooling</h3><ul><li>Claude Code</li><li>GitHub Copilot</li></ul></div>
+        <div class="skill-group"><h3>Computer Vision</h3><ul><li>YOLOv8</li><li>RT-DETR</li><li>OpenCV</li></ul></div>
+        <div class="skill-group"><h3>DevOps &amp; Cloud</h3><ul><li>Docker</li><li>Git / GitHub</li><li>Linux / Bash</li></ul></div>
+                <div class="skill-group"><h3>Concepts</h3><ul><li>Object-oriented programming</li><li>Data structures</li><li>Relational databases</li><li>Real-time systems</li><li>Arduino · RFID</li></ul></div>
+      </div>
+    </section>
+
+    <section class="block" id="education">
+      <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Education</h2></div>
+      <div class="timeline">
+        <div class="entry">
+          <div class="when">2026</div>
+          <div>
+            <h3>B.Sc. Computer Science <span class="badge">Graduate</span></h3>
+            <div class="where">The Academic College of Tel Aviv-Yaffo</div>
+            <ul><li>Advanced Programming in C (95), Data Structures (85), Object-Oriented Programming in .NET and C#</li></ul>
+          </div>
+        </div>
+        <div class="entry">
+          <div class="when">2026</div>
+          <div>
+            <h3>Udemy / Angela Yu</h3>
+            <div class="where">The Complete Full-Stack Web Development Bootcamp</div>
+            <ul><li>HTML, CSS, JavaScript (ES6+), React, Node.js, Express.js, PostgreSQL, MongoDB, REST APIs, Authentication</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="service">
+      <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Military Service</h2></div>
+      <div class="timeline">
+        <div class="entry">
+          <div class="when">Jul 2019 – Jul 2021</div>
+          <div>
+            <h3>Military Medic</h3>
+            <div class="where">Israel Defense Forces</div>
+            <ul>
+              <li>Provided medical care in a military prison under high-pressure, sensitive conditions</li>
+              <li>Worked in complex environments that called for responsibility, discipline and fast decisions</li>
+              <li>Collaborated with security and medical teams to keep care continuous and effective</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block contact" id="contact">
+      <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Contact</h2></div>
+      <h2>Let's build something <span>together.</span></h2>
+      <p>I'm open to junior backend and full stack roles. The best way to reach me is email or LinkedIn.</p>
+      <div class="mail-row">
+        <span class="mail" id="mail">odelya369@gmail.com</span>
+        <button class="btn copy-btn" id="copy" type="button">Copy email</button>
+      </div>
+      <div class="cta">
+        <a class="btn" href="https://github.com/OdelyaMat" target="_blank" rel="noopener">github.com/OdelyaMat</a>
+        <a class="btn" href="https://www.linkedin.com/in/odelya-matatov-13193b259/" target="_blank" rel="noopener">LinkedIn profile</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot">
+      <span>Odelya Matatov © 2026</span>
+      <span>Built with HTML · CSS · JS</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var roles = ["Software Developer.", "Backend Developer.", "Full Stack Developer.", "AI & Computer Vision Developer.", "C / C++ Engineer."];
+  var el = document.getElementById("typed");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce) {
+    var r = 0, i = roles[0].length, deleting = true;
+    setTimeout(function tick() {
+      var word = roles[r];
+      if (deleting) {
+        i--;
+        el.textContent = word.slice(0, i);
+        if (i === 0) { deleting = false; r = (r + 1) % roles.length; }
+        setTimeout(tick, 40);
+      } else {
+        word = roles[r];
+        i++;
+        el.textContent = word.slice(0, i);
+        if (i === word.length) { deleting = true; setTimeout(tick, 1900); }
+        else setTimeout(tick, 75);
+      }
+    }, 2200);
+  }
+
+
+  var mb = document.getElementById("menuBtn"), nl = document.getElementById("navLinks");
+  mb.addEventListener("click", function () {
+    var open = nl.classList.toggle("open");
+    mb.setAttribute("aria-expanded", open ? "true" : "false");
+    mb.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  });
+  nl.addEventListener("click", function (e) {
+    if (e.target.tagName === "A") { nl.classList.remove("open"); mb.setAttribute("aria-expanded", "false"); mb.setAttribute("aria-label", "Open menu"); }
+  });
+
+  if (!reduce && "IntersectionObserver" in window) {
+    var items = document.querySelectorAll("section.block .sec-head, .about > *, .proj, .skill-group, .entry, .contact > h2, .contact > p, .mail-row");
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { var t = en.target; t.classList.add("shown"); t.classList.remove("pre"); io.unobserve(t);
+          setTimeout(function () { t.classList.remove("shown"); t.style.transitionDelay = ""; }, 1300); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    var vh = window.innerHeight || 800;
+    items.forEach(function (el, i) {
+      if (el.getBoundingClientRect().top > vh) {
+        el.classList.add("pre");
+        el.style.transitionDelay = ((i % 4) * 70) + "ms";
+        io.observe(el);
+      }
+    });
+  }
+
+  var btn = document.getElementById("copy");
+  var mail = document.getElementById("mail");
+  btn.addEventListener("click", function () {
+    var done = function () { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy email"; }, 1800); };
+    var fallback = function () {
+      var range = document.createRange(); range.selectNodeContents(mail);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      btn.textContent = "Selected, press Ctrl+C";
+    };
+    try {
+      navigator.clipboard.writeText(mail.textContent).then(done, fallback);
+    } catch (e) { fallback(); }
+  });
+})();
+</script>
+</body>
+</html>
